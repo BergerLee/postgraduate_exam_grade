@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import {ref, onMounted, watch, nextTick} from 'vue';
 
 // 使用 Record<string, string> 来声明 exam 的类型
 const exam = ref<Record<string, string>>({
@@ -16,15 +16,15 @@ const exam = ref<Record<string, string>>({
 
 // fields 数组
 const fields = [
-  { label: '姓名', model: 'realName' },
-  { label: '报名号', model: 'bmh' },
-  { label: '准考证号', model: 'zkzh' },
-  { label: '总分', model: 'zf' },
-  { label: '第一门', model: 'km1' },
-  { label: '第二门', model: 'km2' },
-  { label: '第三门', model: 'km3' },
-  { label: '第四门', model: 'km4' },
-  { label: '备注', model: 'bz' },
+  {label: '姓名', model: 'realName'},
+  {label: '报名号', model: 'bmh'},
+  {label: '准考证号', model: 'zkzh'},
+  {label: '总分', model: 'zf'},
+  {label: '第一门', model: 'km1'},
+  {label: '第二门', model: 'km2'},
+  {label: '第三门', model: 'km3'},
+  {label: '第四门', model: 'km4'},
+  {label: '备注', model: 'bz'},
 ];
 
 // 提取科目成绩的函数
@@ -39,6 +39,11 @@ onMounted(() => {
   if (savedExam) {
     exam.value = JSON.parse(savedExam);
   }
+
+  // 页面加载时，调整所有 textarea 的高度
+  nextTick(() => {
+    adjustTextareaHeight();
+  });
 });
 
 // 监听 exam 变化并保存到 localStorage
@@ -53,7 +58,22 @@ watch(exam, (newExam) => {
 
   // 保存到 localStorage
   localStorage.setItem('exam', JSON.stringify(newExam));
-}, { deep: true });
+
+  // 在更新 exam 后重新调整高度
+  nextTick(() => {
+    adjustTextareaHeight();
+  });
+}, {deep: true});
+
+// 调整所有 textarea 的高度
+function adjustTextareaHeight() {
+  const textareas = document.querySelectorAll('textarea');
+  textareas.forEach((textarea) => {
+    // 根据内容调整高度
+    textarea.style.height = 'auto'; // 重置为 auto 以计算正确的 scrollHeight
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  });
+}
 </script>
 
 <template>
@@ -69,7 +89,7 @@ watch(exam, (newExam) => {
                 v-model="exam[field.model]"
                 class="van-field__control"
                 style="height: 24px; color: #666666"
-            ></textarea>
+            />
           </div>
         </div>
       </div>
@@ -77,6 +97,7 @@ watch(exam, (newExam) => {
   </div>
 </template>
 
+
 <style scoped>
-/* 样式内容 */
+
 </style>

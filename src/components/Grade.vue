@@ -67,8 +67,8 @@ watch(exam, (newExam) => {
 
 // 调整所有 textarea 的高度
 function adjustTextareaHeight() {
-  const textareas = document.querySelectorAll('textarea');
-  textareas.forEach((textarea) => {
+  const textarea_s = document.querySelectorAll('textarea');
+  textarea_s.forEach((textarea) => {
     // 根据内容调整高度
     textarea.style.height = 'auto'; // 重置为 auto 以计算正确的 scrollHeight
     textarea.style.height = `${textarea.scrollHeight}px`;

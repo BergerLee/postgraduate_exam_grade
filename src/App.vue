@@ -5,7 +5,6 @@ import NoticeBar from "./components/NoticeBar.vue";
 import GradeBottom from "./components/GradeBottom.vue";
 import Footer from "./components/Footer.vue";
 import Grade from "./components/Grade.vue";
-
 </script>
 
 <template>

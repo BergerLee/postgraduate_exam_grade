@@ -20,13 +20,14 @@
           src="../assets/nav-user.svg"
           style="width: 0.533rem; margin-right: 0.24rem;"
       />
-      <span>
-        <img
-            src="../assets/nav-menu.svg"
-            alt=""
-            style="width: 0.533rem; display: block;"
-        />
-      </span>
+
+
+      <img
+          src="../assets/nav-menu.svg"
+          alt=""
+          style="width: 0.533rem; display: block;"
+      />
+
     </div>
   </div>
 </template>
